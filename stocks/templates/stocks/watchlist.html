@@ -1,0 +1,35 @@
+{% extends "stocks/base.html" %}
+{% block content %}
+
+
+<br>
+<h1>Watchlist : </h1>
+<br>
+<div class='container'>
+    <table class='table table-bordered'>
+        <thead class="thead-light">
+            <th>Stock</th>
+            <th>Company</th>
+            <th>Option</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>AMZN</td>
+                <td>Amazon Inc.</td>
+                <td>
+                    <button type='button' class="btn btn-outline-danger">Remove</button>
+                </td>
+            </tr>
+            <tr></tr>
+        </tbody>
+    </table>
+</div>
+
+
+{% if hasError %}
+<div class="container-text-center">
+    <br>
+    <span style='color:red'>{{error }}</span>
+</div>
+{% endif %}
+{% endblock content %}

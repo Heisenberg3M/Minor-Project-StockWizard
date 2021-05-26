@@ -1,0 +1,60 @@
+{% extends "stocks/base.html" %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>    
+
+
+<br>
+<h1>Charts : </h1>
+{% if hasError %}
+<div class="container-text-center">
+    <br>
+    <span style='color:red'>{{error }}</span>
+</div>
+{% endif %}
+
+{% if not hasError %}
+<div class='container'>
+    <canvas id="myChart" width="500" height="300" ></canvas>
+</div>
+{% endif %}
+
+
+<script>
+    let myChart=document.getElementById('myChart').getContext('2d');
+    let historical_data_chart=new Chart(myChart, {
+        type: 'line',
+        data: {
+          labels: [{% for d in date %} "{{d}}", {% endfor %}],
+          datasets: [
+            { 
+              data: [{% for h in high %} {{h}} , {% endfor %}],
+              borderWidth: 2,
+              pointBorderWidth: 2,
+              pointBackgroundColor: 'transparent',
+              label: "High",
+              borderColor: "#FF6347",
+              fill: false
+            },
+          ]
+        },
+        options: {
+          elements: { 
+            point: {
+              radius: 2,
+              hitRadius: 2, 
+              hoverRadius: 2 
+            } 
+          },
+          tooltips: {
+            backgroundColor: 'transparent',
+            displayColors: 'transparent',
+          },
+          title: {
+            display: true,
+            text: 'Stock details '
+          }
+        }
+      });
+</script>
+
+{% endblock content %}
