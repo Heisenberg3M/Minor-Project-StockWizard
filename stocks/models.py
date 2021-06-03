@@ -20,5 +20,9 @@ class Post(models.Model):
 
 class Stock_detail(models.Model):
     symbol=models.CharField(max_length=10)
+    company=models.CharField(max_length=100,default=None)
     uname=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.symbol
 

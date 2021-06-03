@@ -32,6 +32,15 @@
               pointBorderWidth: 2,
               pointBackgroundColor: 'transparent',
               label: "High",
+              borderColor: "#7FFF00",
+              fill: false
+            },
+            { 
+              data: [{% for l in low %} {{l}} , {% endfor %}],
+              borderWidth: 2,
+              pointBorderWidth: 2,
+              pointBackgroundColor: 'transparent',
+              label: "Low",
               borderColor: "#FF6347",
               fill: false
             },

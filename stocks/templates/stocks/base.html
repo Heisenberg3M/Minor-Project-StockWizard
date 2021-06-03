@@ -94,10 +94,16 @@
         {% if show %}
         <div class="col-md-4">
           <br>
-          <form>
-          <button type="button" class="btn btn-outline-info">Add to Watchlist</button>
+          {% if showWB %}
+          <form action="{% url 'stocks-addToWatchlist' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="tsymbol" name="tsymbol" value="{{ ticker }}">
+            <input type="hidden" id="tcompany" name="tcompany" value="{{ name }}">
+            <input type="hidden" id="uname" name="uname" value="{{ user.username }}">
+          <button type="submit" class="btn btn-outline-info">Add to Watchlist</button>
           </form>
           <br><br><br>
+          {% endif %}
           <div class="content-section scroll bg-secondary">
               <h1 class="text-light">News</h1>
               <p class='text-muted'><h5 class="text-light">* Current affairs regarding <u><b>{{ ticker }}</b></u></h5></p>

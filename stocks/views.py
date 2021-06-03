@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .models import Post
+from .models import Stock_detail
 from .forms import TickerForm
 from datetime import datetime
 
@@ -54,14 +54,17 @@ def ticker(request, tid):
         summary['adjClose']=s['previousClose']
         summary['adjVolume']=s['volume']
         summary['show'] = True
-        
+        if Stock_detail.objects.filter(symbol=tid,uname=request.user.username):
+            summary["showWB"]=False
+        else:
+            summary["showWB"]=True
         global stock_symbol_name
         stock_symbol_name=tid.upper()
         
         # news
         global stock_news
         newsapi=NewsApiClient(api_key='c487a57cd85444eab7fc473262abf83e')
-        all_articles = newsapi.get_everything(q=stock_symbol_name,from_param='2021-05-01',language='en')
+        all_articles = newsapi.get_everything(q=stock_symbol_name,from_param='2021-05-20',language='en')
         stock_news=all_articles['articles']
         summary["news"] = stock_news
         '''
@@ -80,6 +83,29 @@ def ticker(request, tid):
         return render(request, 'stocks/home.html', err)
     
 
+def addToWatchlist(request):
+    if request.method=="POST":
+        tsymbol=request.POST.get("tsymbol")
+        tcompany=request.POST.get("tcompany")
+        tuname=request.POST.get("uname")      
+        new_entry=Stock_detail(symbol=tsymbol,company=tcompany,uname=tuname)
+        new_entry.save()
+        watchlist={}
+        stocks=Stock_detail.objects.filter(uname=tuname)
+        watchlist["stocks"]=stocks
+        watchlist["search"]=True
+        return render(request, 'stocks/watchlist.html', watchlist)
+
+def removeFromWatchlist(request):
+    watchlist={}
+    tsymbol=request.POST.get("tsymbol")
+    tuname=request.POST.get("uname")
+    stock=Stock_detail.objects.filter(symbol=tsymbol,uname=tuname).delete()
+    stocks=Stock_detail.objects.filter(uname=tuname)
+    watchlist["stocks"]=stocks
+    watchlist["search"]=True
+    return render(request, 'stocks/watchlist.html', watchlist)
+
 def about(request):
     about={}
     about['search']=True
@@ -87,6 +113,9 @@ def about(request):
 
 def watchlist(request):
     watchlist={}
+    tuname=request.user.username
+    stocks=Stock_detail.objects.filter(uname=tuname)
+    watchlist["stocks"]=stocks
     watchlist["search"]=True
     return render(request, 'stocks/watchlist.html', watchlist)
 
@@ -115,13 +144,20 @@ def historical(request):
         # Getting High details for ticker
         high_data=historical_data['High']
         high_data=high_data.tolist()
+        low_data=historical_data['Low']
+        low_data=low_data.tolist()
         historical={}
         historical['date']=date_data_list
         historical['high']=high_data
+        historical['low']=low_data
         historical['show']=True
         historical["news"]=stock_news
         historical["ticker"]=stock_symbol_name
         historical['search']=True
+        if Stock_detail.objects.filter(symbol=stock_symbol_name,uname=request.user.username):
+            historical["showWB"]=False
+        else:
+            historical["showWB"]=True
 
         return render(request, 'stocks/historical_data.html', historical)
 
@@ -172,6 +208,10 @@ def prediction(request):
         prediction_data["ticker"]=stock_symbol_name
         prediction_data["news"]=stock_news
         prediction_data['search']=True
+        if Stock_detail.objects.filter(symbol=stock_symbol_name,uname=request.user.username):
+            prediction_data["showWB"]=False
+        else:
+            prediction_data["showWB"]=True
 
         return render(request, 'stocks/prediction.html', prediction_data)
 

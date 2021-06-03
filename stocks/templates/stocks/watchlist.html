@@ -13,14 +13,22 @@
             <th>Option</th>
         </thead>
         <tbody>
+            {% for stock in stocks %}
             <tr>
-                <td>AMZN</td>
-                <td>Amazon Inc.</td>
+                <td>{{ stock.symbol }}</td>
+                <td>{{ stock.company }}</td>
                 <td>
-                    <button type='button' class="btn btn-outline-danger">Remove</button>
+                    <form action="{% url 'stocks-removeFromWatchlist' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" id="tsymbol" name="tsymbol" value="{{ stock.symbol }}">
+                        <input type="hidden" id="uname" name="uname" value="{{ stock.uname }}">
+                        <button type='submit' class="btn btn-outline-danger">Remove</button>
+                    </form>
+                    
                 </td>
             </tr>
-            <tr></tr>
+            {% endfor %}
+            
         </tbody>
     </table>
 </div>
