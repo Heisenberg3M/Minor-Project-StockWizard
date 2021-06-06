@@ -1,7 +1,8 @@
 {% extends "stocks/base.html" %}
+{% load static %}
 {% block content %}
 <br>
-<ul class="list-group">
+<ul class="list-group" style="width: 69rem;">
      <li class="list-group-item list-group-item-light">
           <h1>Why We Built StockWizard ?</h1>
      </li>
@@ -20,7 +21,7 @@
      </li>
    </ul>
    <br>
-   <ul class="list-group">
+   <ul class="list-group" style="width: 69rem;">
      <li class="list-group-item list-group-item-light">
           <h1>Intuitive visualizations gives you important context.</h1>
      </li>
@@ -28,9 +29,38 @@
           <p><h5>Get an instant snapshot of the historical trends and industry benchmarks you're looking for, without having to spend hours digging into tables.</h5></p>
      </li>
    </ul>
-
 <br>
-<br>
-
+&nbsp;<h1>&nbsp;About us</h1>
+<div>
+     <table>
+     <tbody>
+     <tr>
+     <td>
+     <div class="card bg-white" style="width: 23rem; height: 17rem; text-align:center;">
+         <br>
+          <img src="{% static 'stocks/images/sameer.jpeg' %}" class="rounded-circle account-img" alt="home" style="display:block; margin-right: auto; margin-left: auto; width: 40%;">
+         <div class="card-body">
+           <h5 class="card-title">SAMEER NEMA</h5>
+           <p class="card-text">Not your usual undergrad.</p>
+         </div>
+     </div>
+     </td>
+     <td>&nbsp;&nbsp;&nbsp;</td>
+     <td>
+          <div class="card bg-white" style="width: 23rem; height: 17rem; text-align:center;">
+               <br>
+               <img src="{% static 'stocks/images/prakhar1.jpeg' %}" class="rounded-circle account-img" alt="home" style="display:block; margin-right: auto; margin-left: auto; width: 40%;">
+               <div class="card-body">
+                 <h5 class="card-title">PRAKHAR UPADHYAY</h5>
+                 <p class="card-text">Sky is the limit.</p>
+               </div>
+           </div>
+     </td>
+     <td>&nbsp;&nbsp;&nbsp;</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+<br><br>
 
 {% endblock content %}

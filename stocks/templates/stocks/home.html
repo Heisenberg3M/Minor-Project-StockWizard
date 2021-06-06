@@ -1,4 +1,5 @@
 {% extends "stocks/base.html" %}
+{% load static %}
 {% block content %}
 
 
@@ -25,4 +26,56 @@
     <span style='color:red'>{{error }}</span>
 </div>
 {% endif %}
+
+{% if not show %}
+<div>
+    <br>
+    <div class="card" style="width: 71rem;">
+        <div class="card-body text-muted" style="text-align: center;">
+            <h2><b>STOCK WiZARD</b></h2><br>
+            OFFERING AN ONLINE SOLUTION TO PERSONAL FINANCE MANAGEMENT<br><br><br>
+        </div>
+    </div>
+    <br>
+    <div>
+        <table>
+        <tbody>
+        <tr>
+        <td>
+        <div class="card bg-white" style="width: 23rem; height: 20rem; text-align:center;">
+            <img src="{% static 'stocks/images/stocks.jpeg' %}" class="rounded-circle account-img" alt="home" style="display:block; margin-right: auto; margin-left: auto; width: 40%;">
+            <div class="card-body">
+              <h5 class="card-title">BEST CHART PLOTS</h5>
+              <p class="card-text">For investors, the stock chart is the tool that separates the novice from the MarketSmith. Stock charts record price and volume history to help you determine whether the stock is appreciating or depreciating in value.</p>
+            </div>
+        </div>
+        </td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td>
+        <div class="card bg-info text-white" style="width: 23rem; height: 20rem; text-align:center;">
+            <div class="card-body">
+              <h5 class="card-title">BEST IDEAS</h5>
+              <p class="card-text">machine learning algorithms were used to forecast the price of the future stock market.</p>
+            </div>
+            <img src="{% static 'stocks/images/bull.jpeg' %}" class="card-img-bottom rounded-circle account-img" alt="..." style="display:block; margin-right: auto; margin-left: auto; width: 40%;">
+        </div>
+        </td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td>
+        <div class="card" style="width: 23rem; height: 20rem; text-align:center;">
+            <img src="{% static 'stocks/images/watchlist.jpeg' %}" class="card-img-top rounded-circle account-img" alt="..." style="display:block; margin-right: auto; margin-left: auto; width: 40%;">
+            <div class="card-body">
+              <h5 class="card-title">WATCH LIST</h5>
+              <p class="card-text">Watchlists are provided for you to save the stocks which you prefer. The lists help you to make faster trading/investment decisions.</p>
+            </div>
+        </div>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+</div>
+{% endif %}
+
+
 {% endblock content %}
